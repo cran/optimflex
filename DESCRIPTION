@@ -2,7 +2,7 @@ Package: optimflex
 Type: Package
 Title: Derivative-Based Optimization with User-Defined Convergence
         Criteria
-Version: 0.1.0
+Version: 0.1.6
 Authors@R: 
     person("Eunseong", "Cho", 
            email = "bene@kw.ac.kr", 
@@ -20,9 +20,11 @@ Imports: numDeriv, utils
 Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+URL: https://github.com/eunscho/optimflex
+BugReports: https://github.com/eunscho/optimflex/issues
 NeedsCompilation: no
-Packaged: 2026-02-04 07:35:53 UTC; bene
+Packaged: 2026-03-10 00:20:24 UTC; bene
 Author: Eunseong Cho [aut, cre]
 Maintainer: Eunseong Cho <bene@kw.ac.kr>
 Repository: CRAN
-Date/Publication: 2026-02-07 12:40:07 UTC
+Date/Publication: 2026-04-11 09:30:02 UTC

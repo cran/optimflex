@@ -442,9 +442,9 @@ criteria.</p>
 <span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
 <span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co"># Inspect results</span></span>
 <span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>res<span class="sc">$</span>par</span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; [1]  5 -3</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>res<span class="sc">$</span>converged</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; [1]  5 -3</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>res<span class="sc">$</span>converged</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
 <div id="algorithm-comparison-the-rosenbrock-function" class="section level2">
 <h2>Algorithm Comparison: The Rosenbrock Function</h2>
@@ -452,20 +452,17 @@ criteria.</p>
 like the Rosenbrock “banana” function. You can easily compare how
 different algorithms (e.g., Quasi-Newton vs. Trust-Region) navigate the
 narrow valley.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>rosenbrock <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="dv">100</span> <span class="sc">*</span> (x[<span class="dv">2</span>] <span class="sc">-</span> x[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> x[<span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>}</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>start_val <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.0</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co"># Compare DFP and Double Dogleg</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>res_dfp <span class="ot">&lt;-</span> <span class="fu">dfp</span>(start_val, rosenbrock)</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>res_dd  <span class="ot">&lt;-</span> <span class="fu">double_dogleg</span>(start_val, rosenbrock, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">initial_delta =</span> <span class="fl">2.0</span>))</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;DFP Iterations:&quot;</span>, res_dfp<span class="sc">$</span>iter, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; DFP Iterations: 39</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Double Dogleg Iterations:&quot;</span>, res_dd<span class="sc">$</span>iter, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; Double Dogleg Iterations: 70</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>rosenbrock <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="dv">100</span> <span class="sc">*</span> (x[<span class="dv">2</span>] <span class="sc">-</span> x[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> x[<span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>}</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>start_val <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.0</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># Compare Double Dogleg</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>res_dd  <span class="ot">&lt;-</span> <span class="fu">double_dogleg</span>(start_val, rosenbrock, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">initial_delta =</span> <span class="fl">2.0</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Double Dogleg Iterations:&quot;</span>, res_dd<span class="sc">$</span>iter, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; Double Dogleg Iterations: 51</span></span></code></pre></div>
 </div>
 
 

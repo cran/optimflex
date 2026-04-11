@@ -64,6 +64,11 @@
 #'
 #' @return A list containing optimization results and iteration metadata.
 #' @export
+#' @examples
+# Simple quadratic function optimization
+#' quad <- function(x) (x[1] - 2)^2 + (x[2] + 1)^2
+#' res <- double_dogleg(start = c(0, 0), objective = quad)
+#' print(res$par)
 double_dogleg <- function(
     start, 
     objective, 
@@ -282,6 +287,17 @@ double_dogleg <- function(
           }
           
           x_old <- x; f_old <- f; x <- x_try; f <- f_try; g <- g_new
+
+          # Post-step convergence check (handles exact solutions, e.g., quadratics)
+          g_inf_new <- max(abs(g_new), na.rm = TRUE)
+          if (ctrl$use_grad && g_inf_new <= ctrl$tol_grad) {
+            g_inf <- g_inf_new
+            if (isTRUE(ctrl$use_posdef)) {
+              H_eval <- tryCatch(hess_func(x), error = function(e) NULL)
+              if (is_pd_fast(H_eval)) { converged <- TRUE; status <- "converged"; break }
+            } else { converged <- TRUE; status <- "converged"; break }
+          }
+
           if (rho > ctrl$rho_expand) delta <- min(ctrl$delta_max, ctrl$delta_expand * delta)
         } else {
           # Step Rejected: Shrink Trust Region
