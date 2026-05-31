@@ -1,11 +1,11 @@
-f93610f0b5a57804e235c3940c7631d5 *DESCRIPTION
+52e31e9669cc8afa9b7cc1dfd67c22e9 *DESCRIPTION
 72386c2f8a97bd2e919a3224e578a3a7 *LICENSE
 6caafb93a752ea858f5573abd7fbd2ff *NAMESPACE
-74321af9cc0258c82c4304b7a89e8851 *NEWS.md
+f265871140097cd0147544fc0dd99a75 *NEWS.md
 36a12a453d59809ad789df2a998e7097 *R/bfgs.R
 5e6612c8cf0d12a813c1be3fcf166263 *R/differentiation.R
-87c34456120bff92dd5f01c6b8799226 *R/dogleg.R
-ebaa2930b2829c95015abaead1ea3d96 *R/double_dogleg.R
+ee06b6fd575492c8446b70b944375f22 *R/dogleg.R
+d0f93f370ffd4a0ca05f2bb1ab769a67 *R/double_dogleg.R
 344c39ba713aec2175e40f3aa7b5d5b4 *R/gauss_newton.R
 a6d14d2ec3edf17479905d66833ac5ad *R/l_bfgs_b.R
 c61adefb66fad3791dbd6f734bebdb0d *R/modified_newton.R

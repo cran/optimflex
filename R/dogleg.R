@@ -135,7 +135,12 @@ dogleg <- function(
   x_old <- x; f_old <- NA_real_; delta <- ctrl$initial_delta
   
   # Initialize Hessian approximation (B)
-  B <- diag(ctrl$H_init_diag, n)
+  use_exact_hess <- !is.null(hessian)
+  B <- if (use_exact_hess) {
+    tryCatch(hess_func(x), error = function(e) diag(ctrl$H_init_diag, n))
+  } else {
+    diag(ctrl$H_init_diag, n)
+  }
   H_eval <- NULL; g_inf <- NA_real_
   pred_dec <- NA_real_; pred_dec_avg <- NA_real_
   
@@ -221,9 +226,13 @@ dogleg <- function(
             if (sy_star > 1e-12) { y <- y_star; sy <- sy_star; update_ok <- TRUE }
           } else { if (sy > 1e-12) update_ok <- TRUE }
           
-          if (update_ok) {
-            B <- B - (Bs %*% t(Bs)) / (sBs + 1e-16) + (y %*% t(y)) / (sy + 1e-16)
-            B <- 0.5 * (B + t(B))
+          if (use_exact_hess) {
+            B <- tryCatch(hess_func(x), error = function(e) B)
+          } else {
+            if (update_ok) {
+              B <- B - (Bs %*% t(Bs)) / (sBs + 1e-16) + (y %*% t(y)) / (sy + 1e-16)
+              B <- 0.5 * (B + t(B))
+            }
           }
           
           x_old <- x; f_old <- f; x <- x_try; f <- f_try; g <- g_new

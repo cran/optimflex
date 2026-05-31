@@ -1,3 +1,6 @@
+# optimflex 0.1.7
+* Fixed bugs in dogleg and double_dogleg so that when the user supplies an exact Hessian, it is used directly in the optimization rather than being overridden by the BFGS approximation.
+
 # optimflex 0.1.6
 * Replaced the quadratic example with the Rosenbrock example. Accordingly, removed dfp.R, which had failed to converge on this 
 example in certain environments.
